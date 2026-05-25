@@ -56,21 +56,26 @@ function Header() {
 
   return (
     <header className="header">
+      <ul className="nav-links-left">
+        <li><a href="#concept" onClick={() => setIsOpen(false)}>Concept</a></li>
+        <li><a href="#about" onClick={() => setIsOpen(false)}>About</a></li>
+      </ul>
       <div className="logo">
-        <p>MONO<br />MOMENTS</p>
-        <span>A touch of <b>colour</b> in quiet moment</span>
+        <img src={require('./logo.png')} alt="MONO MOMENTS" className="logo-img" />
       </div>
-      <nav>
-        <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
-          <li><a href="#concept" onClick={() => setIsOpen(false)}>Concept</a></li>
-          <li><a href="#about" onClick={() => setIsOpen(false)}>About</a></li>
-          <li><a href="#works" onClick={() => setIsOpen(false)}>Works</a></li>
-          <li><a href="#contact" onClick={() => setIsOpen(false)}>Contact</a></li>
-        </ul>
-      </nav>
+      <ul className="nav-links-right">
+        <li><a href="#works" onClick={() => setIsOpen(false)}>Works</a></li>
+        <li><a href="#contact" onClick={() => setIsOpen(false)}>Contact</a></li>
+      </ul>
       <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
         &#9776;
       </button>
+      <ul className={`nav-links-mobile ${isOpen ? 'open' : ''}`}>
+        <li><a href="#concept" onClick={() => setIsOpen(false)}>Concept</a></li>
+        <li><a href="#about" onClick={() => setIsOpen(false)}>About</a></li>
+        <li><a href="#works" onClick={() => setIsOpen(false)}>Works</a></li>
+        <li><a href="#contact" onClick={() => setIsOpen(false)}>Contact</a></li>
+      </ul>
     </header>
   );
 }
@@ -83,6 +88,7 @@ function Hero() {
   ]);
   return (
     <div className="hero">
+      <img src={require('./sunset.png')} alt="sunset" className="hero-img" />
       <div className="hero-text">
         <h1>MONO<br />MOMENTS</h1>
         <p>
@@ -140,20 +146,23 @@ function About() {
           <div className="about-row">
             <span className="about-label">RIKA</span>
             <span className="about-desc">
-              中学校英語教諭を辞めて海外ノマド生活中です🌏<br />
-              好きな場所はタイのチェンマイ🇹🇭<br />
-              趣味は食べること、食べたらその分動くこと🏃‍♀️<br />
-              笑顔が一番の武器！毎日全力で楽しく生きてます😆<br />
-              自由に生きてるのに米と珈琲には縛られてる24歳🍚☕
+              Former teacher → Now living the nomad life🌏<br />
+              Favorite place: Chiang Mai, Thailand🇹🇭<br />
+              Loves food, travel & working out🏃‍♀️<br />
+              Hopelessly devoted to rice & coffee🍚☕<br />
+              24 y/o living life at full speed😆
             </span>
+          </div><div className="about-row">
+            <span className="about-label">TITLE</span>
+            <span className="about-desc">Freelance Web Creator🌏</span>
           </div>
           <div className="about-row">
             <span className="about-label">TOOLS</span>
-            <span className="about-desc">Studio / Notion / Slack / Git / GitHub / Canva</span>
+            <span className="about-desc">Studio / Notion / Slack / Git / GitHub / Canva / Docker</span>
           </div>
           <div className="about-row">
             <span className="about-label">SKILLS</span>
-            <span className="about-desc">HTML / CSS / JavaScript / React / Node.js / Web制作 / Canva</span>
+            <span className="about-desc">HTML / CSS / JavaScript / React / Node.js / PHP / Symfony / EC-CUBE / Web制作 / Canva</span>
           </div>
         </div>
       </div>
@@ -176,11 +185,49 @@ function Works() {
 
 function Contact() {
   const ref = useScrollAnimation();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit() {
+    if (name !== '' && email !== '' && message !== '') {
+      setSubmitted(true);
+    }
+  }
+
   return (
     <div className="contact fade-in" id="contact" ref={ref}>
       <h2 className="section-title">CONTACT</h2>
-      <p className="contact-text">お仕事のご依頼・ご相談はこちらからどうぞ</p>
-      <a href="mailto:rikako.k0720@gmail.com" className="contact-btn">GET IN TOUCH</a>
+      {submitted ? (
+        <p className="success-msg">ありがとうございます！後ほどご連絡いたします🙏</p>
+      ) : (
+        <div className="contact-form">
+          <input
+            className="form-input"
+            type="text"
+            placeholder="お名前"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="form-input"
+            type="email"
+            placeholder="メールアドレス"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <textarea
+            className="form-textarea"
+            placeholder="メッセージ"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button className="contact-btn" onClick={handleSubmit}>
+            送信する
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -188,14 +235,36 @@ function Contact() {
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer-logo">MONO<br />MOMENTS</p>
-      <p className="footer-sub">A touch of <span className="accent">colour</span> in quiet moment</p>
+      <img src={require('./logo.png')} alt="MONO MOMENTS" className="footer-logo-img" />
       <p className="footer-copy">© 2026 Rika. All Rights Reserved.</p>
     </footer>
   );
 }
-
 function App() {
+  useEffect(() => {
+    const cursor = document.createElement('div');
+    cursor.classList.add('cursor');
+    document.body.appendChild(cursor);
+
+    const follower = document.createElement('div');
+    follower.classList.add('cursor-follower');
+    document.body.appendChild(follower);
+
+    const moveCursor = (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      follower.style.left = e.clientX + 'px';
+      follower.style.top = e.clientY + 'px';
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      cursor.remove();
+      follower.remove();
+    };
+  }, []);
+
   return (
     <div>
       <Header />

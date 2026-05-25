@@ -11,47 +11,57 @@ body {
 }
 
 /* ヘッダー */
+/* ヘッダー */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 5px 40px;
   background-color: #1a1a1a;
+  position: relative;
 }
 
-.logo p {
-  font-size: 29px;
-  font-weight: bold;
-  letter-spacing: 6px;
-  line-height: 1.1;
-}
-
-.logo span {
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: #ffffff;
-}
-
-.logo b {
-  color: #ff8c00;
-}
-
-.nav-links {
+.nav-links-left,
+.nav-links-right {
   display: flex;
   gap: 35px;
   list-style: none;
 }
 
-.nav-links a {
+.nav-links-left a,
+.nav-links-right a {
   color: #ffffff;
   text-decoration: none;
   font-size: 15px;
   letter-spacing: 1px;
-  transition: color 0.3s;
+  position: relative;
+  padding-bottom: 4px;
 }
 
-.nav-links a:hover {
+.nav-links-left a::after,
+.nav-links-right a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #ff8c00;
+  transition: width 0.3s ease;
+}
+
+.nav-links-left a:hover::after,
+.nav-links-right a:hover::after {
+  width: 100%;
+}
+
+.nav-links-left a:hover,
+.nav-links-right a:hover {
   color: #ff8c00;
+}
+
+.nav-links-mobile {
+  display: none;
 }
 
 /* ヒーロー */
@@ -60,21 +70,19 @@ body {
   margin: 0 40px;
   height: 700px;
   overflow: hidden;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero-img {
   width: 100%;
   height: 100%;
-  background-image: url('./sunset.png');
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
   filter: grayscale(70%);
-  z-index: 0;
+  transition: filter 0.5s ease;
+}
+
+.hero:hover .hero-img {
+  filter: grayscale(0%);
 }
 
 .hero-text {
@@ -95,18 +103,19 @@ body {
 
 
 .hero-text h1 {
-  font-size: 70px;
+  font-size: 100px;
   font-weight: bold;
-  letter-spacing: 6px;
-  line-height: 1.1;
+  letter-spacing: 0.5px;
+  line-height: 0.93;
   color: #ffffff;
 }
 
 .hero-text p {
-  font-size: 21px;
-  letter-spacing: 2px;
-  margin-top: 4px;
+  font-size: 26.2px;
+  letter-spacing: 0.5px;
+  margin-top: 0.5px;
   color: #ffffff;
+  text-transform: uppercase;
 }
 
 .hero-text p span {
@@ -115,15 +124,15 @@ body {
 
 /* CONCEPT */
 .concept {
-  padding: 80px 40px;
+  padding: 120px 40px;
   border-top: 1px solid #444444;
   background-color: #222222;
 }
 
 .section-title {
   color: #ff8c00;
-  font-size: 40px;
-  letter-spacing: 6px;
+  font-size: 48px;
+  letter-spacing: 0.5px;
   margin-bottom: 80px;
   text-align: center;
 }
@@ -143,17 +152,18 @@ body {
 .concept-main {
   font-size: 70px;
   font-weight: 700;
-  letter-spacing: 6px;
-  line-height: 1.1;
+  letter-spacing: 0.5px;
+  line-height: 0.93;
   color: #ffffff;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .concept-sub {
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 18px;
+  letter-spacing: 0.5px;
   color: #ffffff;
-  margin-top: 10px;
+  margin-top: 5px;
+  text-transform: uppercase;
 }
 
 .concept-text-block {
@@ -164,7 +174,7 @@ body {
 
 .concept-text {
   color: #cccccc;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 2.5;
   font-family: 'Noto Serif JP', serif;
 }
@@ -176,7 +186,7 @@ body {
 
 /* ABOUT ME */
 .about {
-  padding: 80px 40px;
+  padding: 120px 40px;
   border-top: 1px solid #444444;
 }
 
@@ -193,6 +203,12 @@ body {
   height: 500px;
   object-fit: cover;
   filter: grayscale(100%);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.about-img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
 }
 
 .about-text {
@@ -221,14 +237,14 @@ body {
 
 .about-desc {
   color: #cccccc;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 2;
   font-family: 'Noto Serif JP', serif;
 }
 
 /* WORKS */
 .works {
-  padding: 80px 40px;
+  padding: 120px 40px;
   border-top: 1px solid #444444;
   background-color: #222222;
 }
@@ -240,7 +256,7 @@ body {
 
 .coming-text {
   font-size: 36px;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   color: #ffffff;
   margin-bottom: 20px;
 }
@@ -253,7 +269,7 @@ body {
 
 /* CONTACT */
 .contact {
-  padding: 80px 40px;
+  padding: 120px 40px;
   border-top: 1px solid #444444;
   text-align: center;
 }
@@ -271,12 +287,31 @@ body {
   color: #ff8c00;
   padding: 15px 50px;
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 16px;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+.contact-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #ff8c00;
+  z-index: -1;
+  transition: left 0.4s ease;
+}
+
+.contact-btn:hover::before {
+  left: 0;
 }
 
 .contact-btn:hover {
-  background-color: #ff8c00;
   color: #ffffff;
 }
 
@@ -336,7 +371,12 @@ body {
     display: block;
   }
 
-  .nav-links {
+  .nav-links-left,
+  .nav-links-right {
+    display: none;
+  }
+
+  .nav-links-mobile {
     display: none;
     flex-direction: column;
     position: fixed;
@@ -351,7 +391,156 @@ body {
     list-style: none;
   }
 
-  .nav-links.open {
+  .nav-links-mobile.open {
     display: flex;
   }
+}
+
+/* CONTACTフォーム */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-input {
+  background-color: #222222;
+  border: 1px solid #444444;
+  color: #ffffff;
+  padding: 15px;
+  font-size: 14px;
+  font-family: 'Oswald', sans-serif;
+  outline: none;
+  letter-spacing: 2px;
+}
+
+.form-input:focus {
+  border-color: #ff8c00;
+}
+
+.form-textarea {
+  background-color: #222222;
+  border: 1px solid #444444;
+  color: #ffffff;
+  padding: 15px;
+  font-size: 14px;
+  font-family: 'Oswald', sans-serif;
+  outline: none;
+  letter-spacing: 2px;
+  height: 150px;
+  resize: none;
+}
+
+.form-textarea:focus {
+  border-color: #ff8c00;
+}
+
+.success-msg {
+  color: #ff8c00;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.logo-img {
+  height: 150px;
+  width: auto;
+}
+
+.footer-logo-img {
+  height: 200px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+/* タブレット対応 */
+@media screen and (max-width: 900px) {
+
+  .concept-content,
+  .about-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .concept-title-block {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .concept-text-block {
+    padding-left: 0;
+  }
+
+  .about-img {
+    width: 100%;
+    height: 400px;
+  }
+
+  .hero-text h1 {
+    font-size: 70px;
+  }
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 600px) {
+  .hero {
+    margin: 0 20px;
+    height: 500px;
+  }
+
+  .hero-text h1 {
+    font-size: 50px;
+  }
+
+  .hero-text p {
+    font-size: 16px;
+  }
+
+  .concept,
+  .about,
+  .works,
+  .contact {
+    padding: 80px 20px;
+  }
+
+  .concept-main {
+    font-size: 50px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+
+  .about-img {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+/* カスタムカーソル */
+.cursor {
+  width: 12px;
+  height: 12px;
+  background-color: #ff8c00;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+}
+
+.cursor-follower {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ff8c00;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+  opacity: 0.5;
 }
